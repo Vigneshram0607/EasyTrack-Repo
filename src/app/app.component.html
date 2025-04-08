@@ -1,0 +1,67 @@
+
+<app-header></app-header>
+<main>
+    <!-- normal method -1 -->
+    <!-- <ul id="users">
+        <li>
+            <app-user [name]="users[0].name" [id]="users[0].id" [avatar]="users[0].avatar" (selectedUser)="onSelectUser($event)"></app-user>
+        </li>
+        <li>
+            <app-user [name]="users[1].name" [id]="users[1].id" [avatar]="users[1].avatar" (selectedUser)="onSelectUser($event)"></app-user>
+        </li>
+        <li>
+            <app-user [name]="users[2].name" [id]="users[2].id" [avatar]="users[2].avatar" (selectedUser)="onSelectUser($event)"></app-user>
+        </li>
+        <li>
+            <app-user [name]="users[3].name" [id]="users[3].id" [avatar]="users[3].avatar" (selectedUser)="onSelectUser($event)"></app-user>
+        </li>
+        <li>
+            <app-user [name]="users[4].name" [id]="users[4].id" [avatar]="users[4].avatar" (selectedUser)="onSelectUser($event)"></app-user>
+        </li>
+        <li>
+            <app-user [name]="users[5].name" [id]="users[5].id" [avatar]="users[5].avatar" (selectedUser)="onSelectUser($event)"></app-user>
+        </li>
+      </ul> -->
+
+    <!-- normal method -2 -->
+    <!-- <ul id="users">
+        <li>
+            <app-user [user]="users[0]" (selectedUser)="onSelectUser($event)"></app-user>
+        </li>
+        <li>
+            <app-user [user]="users[1]" (selectedUser)="onSelectUser($event)"></app-user>
+        </li>
+        <li>
+            <app-user [user]="users[2]" (selectedUser)="onSelectUser($event)"></app-user>
+        </li>
+        <li>
+            <app-user [user]="users[3]" (selectedUser)="onSelectUser($event)"></app-user>
+        </li>
+        <li>
+            <app-user [user]="users[4]" (selectedUser)="onSelectUser($event)"></app-user>
+        </li>
+        <li>
+            <app-user [user]="users[5]" (selectedUser)="onSelectUser($event)"></app-user>
+        </li>
+    </ul> -->
+
+    <!-- using conditional (@for) output -->
+    <ul id="users">
+        @for (user of users; track user.id){
+            <li>
+                <app-user [user]="user" [isUserSelected]="user.id === selectedUserId" (selectedUser)="onSelectUser($event)"></app-user>
+            </li>
+        }
+    </ul>
+    
+    <!-- Normal method -1 -->
+    <!-- <app-tasks [name]=" selectedUser ? selectedUser.name : '' "></app-tasks> -->
+
+    <!-- using conditional (@if) output -->
+     @if (selectedUser){
+        <app-tasks [userId]="selectedUser.id" [name]="selectedUser.name"></app-tasks>
+     } @else {
+        <p class="fallback">Select a user to see their tasks!</p>
+     }
+      
+</main>
