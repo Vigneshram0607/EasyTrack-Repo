@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { DUMMY_USERS } from '../data/dummy-users';
 import { type User } from './user.model';
+import { CardComponent } from '../shared/card/card.component';
 
 const randomIndex = () => Math.floor(Math.random() * DUMMY_USERS.length);
 
@@ -21,6 +22,7 @@ const randomIndex = () => Math.floor(Math.random() * DUMMY_USERS.length);
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
+  imports:[CardComponent],
   styleUrls: ['./user.component.css']
 })
 export class UserComponent implements OnInit {
