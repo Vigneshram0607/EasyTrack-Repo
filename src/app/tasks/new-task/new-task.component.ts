@@ -1,6 +1,7 @@
-import { Component,Output, EventEmitter } from '@angular/core';
+import { Component,Output, Input,EventEmitter, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NewTaskData } from '../task/task.model';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-new-task',
@@ -9,24 +10,35 @@ import { NewTaskData } from '../task/task.model';
   styleUrl: './new-task.component.css'
 })
 export class NewTaskComponent {
-  @Output() cancelAddTask = new EventEmitter<void>(); // void - this is optional , indicates this does not emit any values
-  @Output() add = new EventEmitter<NewTaskData>();
+  @Input({required:true}) userId!: string;
+  @Output() close = new EventEmitter<void>(); // void - this is optional , indicates this does not emit any values
+  // @Output() add = new EventEmitter<NewTaskData>();
 
   enteredTitle = '';
   enteredSummary = '';
   enteredDate = '';
 
+  private tasksService = inject(TasksService);
+
   onCancel(){
-    this.cancelAddTask.emit();
+    this.close.emit();
   }
 
   onSubmit(){
-    this.add.emit({
+    // this.add.emit({
+    //   title: this.enteredTitle,
+    //   summary: this.enteredSummary,
+    //   date: this.enteredDate
+    // });
+
+    this.tasksService.addTask({
       title: this.enteredTitle,
       summary: this.enteredSummary,
       date: this.enteredDate
-    });
-    this.onCancel();
+    }, this.userId);
+
+    
+    this.close.emit();
   }
 
 
